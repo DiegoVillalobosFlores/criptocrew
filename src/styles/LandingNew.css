@@ -1,0 +1,28 @@
+:root {
+    --gray-lighter: #dbdbdb
+}
+
+.Landing-input{
+  border-radius: 0 ;
+  background-color: white ;
+  border-color: var(--gray-lighter);
+  color: var(--gray-lighter);
+}
+
+.Landing-button{
+    border-radius: 0 ;
+    background-color: #f1c40f ;
+    border-color: #f1c40f ;
+    color: white ;
+}
+
+.Landing-button:focus{
+    color: white;
+}
+
+.Landing-input:focus{
+    outline: none ;
+    border: 3px solid var(--accent-orange);
+    box-shadow: 0 0 10px var(--accent-orange);
+    transition: all 0.30s ease-in-out;
+}

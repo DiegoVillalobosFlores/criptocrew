@@ -1,0 +1,150 @@
+$family-sans-serif: "Roboto",  BlinkMacSystemFont, -apple-system, "Helvetica", "Arial", sans-serif
+
+@import "https://fonts.googleapis.com/css?family=Roboto"
+@import '../../node_modules/bulma/bulma.sass'
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+
+
+$main: #f1c40f
+$main2: #d89e10
+
+body
+  background-image: url("../assets/bgbottomrigth.png"), url("../assets/bgtopleft.png")
+  background-repeat: no-repeat
+  background-position: right bottom, top left
+  margin: 0
+  overflow-x: hidden
+  overflow-y: hidden
+  height: 100vh
+  background-color: #fcfcfc
+
+//a
+//  outline: 0
+//.button
+//  border-radius: 0 !important
+//  background-color: $main !important
+//  border-color: $main !important
+//  color: white !important
+//input
+//  border-radius: 0 !important
+//  background-color: white !important
+//  border-color: $grey-lighter !important
+//  color: $grey-lighter !important
+//textarea
+//  border-radius: 0 !important
+//  background-color: white !important
+//  border-color: $grey-lighter !important
+//  color: $grey-lighter !important
+//  resize: none !important
+//
+//input:focus
+//  outline: none !important
+//  border: 3px solid $main !important
+//  box-shadow: 0 0 10px $main !important
+//  transition: all 0.30s ease-in-out
+//
+//textarea:focus
+//  outline: none !important
+//  border: 3px solid $main !important
+//  box-shadow: 0 0 10px $main !important
+//  transition: all 0.30s ease-in-out
+//
+//button:focus
+//  outline: none !important
+//  border: 3px solid $main !important
+//  box-shadow: 0 0 5px $main2 !important
+//  transition: all 0.30s ease-in-out
+//.button:focus
+//  outline: none !important
+//  border: 3px solid $main !important
+//  transition: all 0.30s ease-in-out
+//
+
+@media (min-width: 768px)
+  .section
+    height: 80vh !important
+@media (max-width: 768px)
+  .title
+    font-size: 12pt !important
+  .section
+    height: 40vh !important
+
+
+#LandingCard1
+  background-image: url("../assets/bgin-01.png")
+  background-repeat: no-repeat
+  background-position: right top
+  box-shadow: 0px 0px 86px -19px rgba(0,0,0,0.75)
+  height: 80vh
+  background-color: #fff
+  background-size: 40%
+
+
+#LandingCard2
+  background-image: url("../assets/bgin-02.png")
+  background-repeat: no-repeat
+  background-position: left bottom
+  box-shadow: 0px 0px 86px -19px rgba(0,0,0,0.75)
+  height: 80vh
+  background-color: #fff
+  background-size: 51%
+
+#LandingCard3
+  background-image: url("../assets/bgin-01.png")
+  background-repeat: no-repeat
+  background-position: right top
+  box-shadow: 0px 0px 86px -19px rgba(0,0,0,0.75)
+  height: 80vh
+  background-color: #fff
+
+#LandingCard4
+  background-image: url("../assets/bgin-02.png")
+  background-repeat: no-repeat
+  box-shadow: 0px 0px 86px -19px rgba(0,0,0,0.75)
+  background-position: left bottom
+  height: 80vh
+  background-color: #fff
+  background-size: 45%
+
+.Navigation-Anchor
+  background-color: $grey !important
+.active
+  background-color: $main2 !important
+
+.is-main
+  color: $main
+.is-main2
+  color: $main2
+
+.navbar-item:hover
+  color: $main !important
+
+.clickOnCoin
+  background-image: url("../assets/clickOnCoin.png")
+  background-repeat: no-repeat
+  height: 400px
+  background-size: contain
+  background-position: bottom left
+.coins
+  background-image: url("../assets/coins.svg")
+  background-repeat: no-repeat
+  height: 440px
+  background-size: contain
+  background-position: bottom
+.tile
+  line-height: 1.5em
+@media (max-width: 768px)
+  .clickOnCoin
+    background-image: url("../assets/clickOnCoin.png")
+    background-repeat: no-repeat
+    height: 150px
+    background-size: contain
+    background-position: bottom left
+  .coins
+    background-image: url("../assets/coins.svg")
+    background-repeat: no-repeat
+    height: 200px
+    background-size: contain
+    background-position: bottom
+  section
+    padding: 0 !important

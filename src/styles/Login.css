@@ -1,0 +1,29 @@
+.Login {
+    display: grid;
+    grid-template-columns: auto;
+    height: 100vh;
+    font-family: Roboto;
+}
+
+.Login-options-container {
+    /* grid-template-rows: 70px 140px 70px; */
+    background-color: var(--container-background);
+    align-items: center;
+    justify-items: center;
+    display: grid;
+    border-radius: 8px;
+    margin-top: 10%;
+    border: 1px solid black;
+    justify-self: center;
+    align-self: center;
+}
+
+.Login-options-container-items-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto;
+}
+
+.Login-options-form-container {
+    align-items: start;
+}
