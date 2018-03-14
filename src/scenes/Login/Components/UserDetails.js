@@ -1,27 +1,6 @@
 import React from 'react'
 import TextField from 'material-ui/TextField';
-
-const textFieldStyle = {
-    color: "black !important",
-    backgroundColor: "null !important"
-};
-
-const inputUnderline = {
-    backgroundColor: "var(--color-accent)",
-};
-
-const inputLabelFocused = {
-    color: "var(--color-accent)",
-};
-
-const styles = theme => ({
-
-    inputUnderline: {
-        '&:after': {
-            backgroundColor: "var(--color-accent)",
-        },
-    },
-});
+import Button from 'material-ui/Button';
 
 const UserDetails = (props) =>{
   return(
@@ -37,31 +16,34 @@ const UserDetails = (props) =>{
                     label="Dirección de ETH"
                     // placeholder="Dirección de ETH"
                     margin="normal"
+                    onChange={(evt) => props.handleDataChange("address",evt.target.value)}
                     helperText="Dirección de ETH"
-                    InputLabelProps={{
-                        classes: {
-                            focused: inputLabelFocused
-                        }
-                    }}
-                    InputProps={{
-                        classes: {
-                            input: inputUnderline
-                        },
-                    }}
+                    fullWidth
+                    required={true}
                 />
             </div>
             <div>
                 <TextField
                     id="nip"
                     label="NIP de transacciones"
+                    onChange={(evt) => props.handleDataChange("nip",evt.target.value)}
                     // placeholder="NIP de transacciones"
                     margin="normal"
-                    helperText="Ingresa un NIP de 4 digitos para proteger tus transacciones"
-                    style={textFieldStyle}
+                    helperText="Ingresa un NIP de mínimo 4 digitos para proteger tus transacciones"
+                    fullWidth
+                    required={true}
+                    type="number"
                 />
             </div>
             <div>
-                <input value="Enviar" type="button"/>
+                <Button
+                    variant="raised"
+                    style={props.buttonStyle}
+                    disabled={props.validData}
+                    onClick={props.onSubmit}
+                >
+                    Enviar
+                </Button>
             </div>
         </form>
       </div>

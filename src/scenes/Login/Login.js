@@ -17,6 +17,18 @@ const paperStyle = {
     textAlign: "center",
 };
 
+const disabledStyle = {
+    color: "#9B9B9B",
+    backgroundColor: "#D1D1D1",
+    marginTop: "16px"
+};
+
+const enabledStyle = {
+    backgroundColor: "var(--accent-orange)",
+    color: "var(--text-button)",
+    marginTop: "16px"
+};
+
 class Login extends Component {
     constructor(props){
         super(props);
@@ -24,8 +36,10 @@ class Login extends Component {
             uid: "0",
             token: "0",
             user: {},
-            showMissingDetails: true,
-            showLoading: true,
+            showMissingDetails: false,
+            showLoading: false,
+            nip: "",
+            address: "",
         }
     }
 
@@ -41,9 +55,10 @@ class Login extends Component {
         console.log(response);
         this.setState({showLoading: false});
         const {user} = response;
-        this.props.handleSignIn({...user,isLoggedIn: true});
         if(!user.nip || !user.address){
-            this.setState({showMissingDetails: true})
+            this.setState({showMissingDetails: true,user: user})
+        }else{
+            this.props.handleSignIn({...user,isLoggedIn: true,token: idToken});
         }
     };
 
@@ -81,14 +96,48 @@ class Login extends Component {
 
     getUserToken = () => {
         firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        console.log(idToken);
-        this.getUser(idToken);
-        this.setState({
-            token: idToken,
+            console.log(idToken);
+            this.getUser(idToken);
+        }).catch(error => {console.log(error)
         })
-      }).catch(error => {
-        console.log(error)
-      })
+    };
+
+    async setUser(idToken,address,nip) {
+        let request = await fetch('https://cryptocrewtest.firebaseapp.com/setUserInfo?address=' + address + "&nip=" + nip, {
+            method: 'GET',
+            headers: {
+                'authorization': idToken,
+            },
+            mode: 'cors'
+        });
+        const response = await request.json();
+        console.log(response);
+        const {ok} = response;
+        if(ok){
+            this.props.handleSignIn({...this.state.user,address:address,nip:nip,isLoggedIn: true,token: idToken});
+        }else{
+            this.setState({
+                showLoading: false,
+                showMissingDetails: true,
+            })
+        }
+    }
+
+    setUserData = () => {
+        firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+            this.setState({showLoading: true, showMissingDetails: false});
+            this.setUser(idToken,this.state.address,this.state.nip)
+        })
+    };
+
+    validAddressAndNip = () => {
+        return !(this.state.nip.length >=4 && this.state.address)
+    };
+
+    handleDataChange = (field,value) => {
+        this.setState({
+            [field]:value,
+        })
     };
 
     render(){
@@ -96,13 +145,9 @@ class Login extends Component {
             <div className="Login">
                 <Paper style={paperStyle} elevation={4}>
                     <img src={Logo}/>
-                    {/*<p>{this.state.uid}</p>*/}
                     <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
                     {this.state.showLoading ? (<CircularProgress style={{color: "#F1C40C"}}/>) : null}
-                    {this.state.showMissingDetails ? (<UserDetails/>) : null}
-                    {/*<h2>Token</h2>
-                    <p>{this.state.token}</p>
-                    <input type="button" onClick={() => this.getUserToken((token) => {this.setState({token: token})})} value={"Get IdToken"}/>*/}
+                    {this.state.showMissingDetails ? (<UserDetails onSubmit={this.setUserData} validData={this.validAddressAndNip()} buttonStyle={this.validAddressAndNip() ? disabledStyle: enabledStyle} handleDataChange={this.handleDataChange}/>) : null}
                 </Paper>
             </div>
         )

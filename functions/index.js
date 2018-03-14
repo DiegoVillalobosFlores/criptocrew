@@ -17,18 +17,28 @@ exports.CreateUserAccount = functions.auth.user().onCreate(event => {
     admin.firestore().doc("users/" + uid).set(user);
 });
 
-exports.AddUserInfo = functions.https.onRequest((req,res) => {
+exports.setUserInfo = functions.https.onRequest((req,res) => {
     const data = {
         ethAddress: req.query.address,
+        nip: req.query.nip,
     };
 
     const token = req.header("authorization");
+    console.log("TOKEN",token);
 
     getUidWithToken(token, (uid) => {
         if(uid !== false){
-            admin.firestore().doc("users/" + uid).update(data);
-            console.log("ADD OK","Added data to " + uid);
-            res.status(200).send({ok : true});
+            admin.firestore().collection("users").doc(uid).update(update)
+                .then(() => {
+                    console.log("ADD OK","Added data to " + uid);
+                    res.status(200).send({ok : true});
+                    return true;
+                })
+                .catch((error) => {
+                    res.status(400).send({error:{message: error,status:403}})
+                });
+        }else{
+            res.status(403).send({error: {message: "Invalid Token: " + data.token,status: 403}});
         }
     })
 
@@ -131,7 +141,7 @@ function getUserData(token,callback) {
     });
 }
 
-exports.GetUserShares = functions.https.onRequest((req,res) => {
+exports.getUserShares = functions.https.onRequest((req,res) => {
     const data = {
         token : req.header("authorization")
     };
@@ -149,7 +159,7 @@ exports.GetUserShares = functions.https.onRequest((req,res) => {
 
 });
 
-exports.GetUserCurrentBalance = functions.https.onRequest((req,res) => {
+exports.getUserCurrentBalance = functions.https.onRequest((req,res) => {
     const data = {
         token : req.header("authorization")
     };

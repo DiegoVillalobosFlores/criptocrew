@@ -12,7 +12,10 @@
       "**/node_modules/**"
     ],
     "rewrites": [{
-      "source": "/getUserData", "function": "getUserData" }
+        "source": "/getUserData", "function": "getUserData"
+      },{
+        "source": "/setUserInfo", "function": "setUserInfo"
+      }
     ]
   }
 }
